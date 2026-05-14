@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.chart.*?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="20" xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="org.example.projet_java_fx.controllers.StatsController">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <HBox alignment="CENTER_LEFT" spacing="20">
+        <Label text="Tableau de Bord Analytics" styleClass="title-text"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <HBox spacing="10" alignment="CENTER_LEFT" styleClass="card" style="-fx-padding: 5 15;">
+            <Label text="Filtrer par Niveau:"/>
+            <ComboBox fx:id="cbFilterNiveau" promptText="Tous les niveaux" onAction="#refreshStats"/>
+            <Button onAction="#refreshStats" styleClass="button">
+                <graphic><FontIcon iconLiteral="fas-sync-alt"/></graphic>
+            </Button>
+        </HBox>
+    </HBox>
+
+    <FlowPane hgap="20" vgap="20">
+        <VBox spacing="10" styleClass="card" prefWidth="220" alignment="CENTER">
+            <FontIcon iconLiteral="fas-users" iconSize="30" styleClass="icon-graphic" style="-fx-icon-color: #3882f6;"/>
+            <Label text="Total Étudiants" styleClass="subtitle-text"/>
+            <Label fx:id="lblTotalStudents" text="0" style="-fx-font-size: 24; -fx-font-weight: bold;"/>
+        </VBox>
+
+        <VBox spacing="10" styleClass="card" prefWidth="220" alignment="CENTER">
+            <FontIcon iconLiteral="fas-calculator" iconSize="30" styleClass="icon-graphic" style="-fx-icon-color: #10b981;"/>
+            <Label text="Moyenne de Classe" styleClass="subtitle-text"/>
+            <Label fx:id="lblClassAverage" text="0.00" style="-fx-font-size: 24; -fx-font-weight: bold;"/>
+        </VBox>
+
+        <VBox spacing="10" styleClass="card" prefWidth="220" alignment="CENTER">
+            <FontIcon iconLiteral="fas-trophy" iconSize="30" styleClass="icon-graphic" style="-fx-icon-color: #f59e0b;"/>
+            <Label text="Major de Promo" styleClass="subtitle-text"/>
+            <Label fx:id="lblBestStudent" text="N/A" style="-fx-font-size: 16; -fx-font-weight: bold;" wrapText="true" alignment="CENTER"/>
+        </VBox>
+
+        <VBox spacing="10" styleClass="card" prefWidth="220" alignment="CENTER">
+            <FontIcon iconLiteral="fas-book-reader" iconSize="30" styleClass="icon-graphic" style="-fx-icon-color: #8b5cf6;"/>
+            <Label text="Modules Actifs" styleClass="subtitle-text"/>
+            <Label fx:id="lblTotalModules" text="0" style="-fx-font-size: 24; -fx-font-weight: bold;"/>
+        </VBox>
+    </FlowPane>
+
+    <GridPane hgap="20" vgap="20" VBox.vgrow="ALWAYS">
+        <columnConstraints>
+            <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints vgrow="ALWAYS" minHeight="10.0" prefHeight="30.0" />
+        </rowConstraints>
+
+        <VBox spacing="10" styleClass="card" GridPane.columnIndex="0">
+            <Label text="Effectifs par Filière" style="-fx-font-weight: bold;"/>
+            <BarChart fx:id="barChart" animated="true">
+                <xAxis><CategoryAxis label="Filière"/></xAxis>
+                <yAxis><NumberAxis label="Étudiants"/></yAxis>
+            </BarChart>
+        </VBox>
+        
+        <VBox spacing="10" styleClass="card" GridPane.columnIndex="1">
+            <Label text="Taux de Réussite par Module (%)" style="-fx-font-weight: bold;"/>
+            <BarChart fx:id="successChart" animated="true">
+                <xAxis><CategoryAxis label="Module"/></xAxis>
+                <yAxis><NumberAxis label="Taux %" upperBound="100" autoRanging="false"/></yAxis>
+            </BarChart>
+        </VBox>
+    </GridPane>
+</VBox>

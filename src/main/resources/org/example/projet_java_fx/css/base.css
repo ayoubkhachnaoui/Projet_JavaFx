@@ -1,0 +1,61 @@
+.root {
+    -fx-font-family: "Segoe UI", Roboto, "Inter", sans-serif;
+}
+
+.root-pane {
+    -fx-background-color: linear-gradient(to bottom right, #6366f1, #a855f7, #ec4899);
+}
+
+.button {
+    -fx-cursor: hand;
+    -fx-padding: 10 20;
+    -fx-transition: all 0.3s;
+    -fx-font-weight: bold;
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
+}
+
+.sidebar {
+    -fx-padding: 20;
+    -fx-spacing: 12;
+}
+
+.sidebar-button {
+    -fx-background-color: transparent;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 12 20;
+    -fx-spacing: 15;
+    -fx-pref-width: 250;
+    -fx-font-size: 14;
+}
+
+.card {
+    -fx-padding: 25;
+}
+
+.title-text {
+    -fx-font-size: 28;
+    -fx-font-weight: bold;
+}
+
+.subtitle-text {
+    -fx-font-size: 14;
+    -fx-opacity: 0.8;
+}
+
+/* Animations for charts */
+.chart {
+    -fx-padding: 10;
+}
+
+.chart-content {
+    -fx-padding: 10;
+}
+
+.table-view {
+    -fx-padding: 5;
+}
+
+.table-view .table-column {
+    -fx-alignment: CENTER_LEFT;
+}

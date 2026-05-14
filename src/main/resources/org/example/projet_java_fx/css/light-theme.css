@@ -1,0 +1,77 @@
+/* Light Theme Overhaul - Glassmorphism & Glossy */
+.root {
+    -fx-background-color: linear-gradient(to bottom right, #e0e7ff, #f8fafc);
+    -fx-text-fill: #1e293b;
+}
+
+.sidebar {
+    -fx-background-color: rgba(255, 255, 255, 0.7);
+    -fx-background-radius: 0 30 30 0;
+    -fx-border-color: rgba(255, 255, 255, 0.3);
+    -fx-border-width: 0 1 0 0;
+}
+
+.sidebar-button {
+    -fx-text-fill: #64748b;
+    -fx-background-radius: 15;
+}
+
+.sidebar-button:hover {
+    -fx-background-color: rgba(99, 102, 241, 0.1);
+    -fx-text-fill: #4f46e5;
+}
+
+.sidebar-button-active {
+    -fx-background-color: linear-gradient(to right, #6366f1, #818cf8);
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(99, 102, 241, 0.4), 10, 0, 0, 5);
+}
+
+.card {
+    -fx-background-color: rgba(255, 255, 255, 0.6);
+    -fx-background-radius: 25;
+    -fx-border-color: rgba(255, 255, 255, 0.4);
+    -fx-border-width: 1;
+    -fx-border-radius: 25;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 20, 0, 0, 10);
+}
+
+.button-primary {
+    -fx-background-color: linear-gradient(to bottom, #6366f1, #4f46e5);
+    -fx-background-radius: 15;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(79, 70, 229, 0.3), 8, 0, 0, 4);
+}
+
+.button-primary:hover {
+    -fx-background-color: linear-gradient(to bottom, #818cf8, #6366f1);
+}
+
+.text-field, .password-field, .combo-box, .date-picker {
+    -fx-background-color: rgba(255, 255, 255, 0.8);
+    -fx-background-radius: 15;
+    -fx-border-color: rgba(0, 0, 0, 0.05);
+    -fx-border-radius: 15;
+    -fx-padding: 10;
+}
+
+.table-view {
+    -fx-background-color: rgba(255, 255, 255, 0.4);
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-border-color: rgba(255, 255, 255, 0.3);
+}
+
+.table-view .column-header {
+    -fx-background-color: rgba(255, 255, 255, 0.5);
+    -fx-background-radius: 10 10 0 0;
+}
+
+/* Glossy notification effect */
+.notification-bar {
+    -fx-background-color: rgba(255, 255, 255, 0.9);
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-border-color: rgba(255, 255, 255, 0.5);
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 15, 0, 0, 5);
+}

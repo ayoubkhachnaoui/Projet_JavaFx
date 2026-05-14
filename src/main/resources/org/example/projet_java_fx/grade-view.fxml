@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="20" xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="org.example.projet_java_fx.controllers.GradeController">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <HBox spacing="20">
+        <VBox spacing="15" prefWidth="350" styleClass="card">
+            <Label text="Saisie des Notes" styleClass="title-text" style="-fx-font-size: 18;"/>
+            
+            <VBox spacing="10">
+                <VBox spacing="2">
+                    <Label text="Étudiant"/>
+                    <ComboBox fx:id="cbStudent" maxWidth="Infinity" promptText="Sélectionner un étudiant"/>
+                </VBox>
+                <VBox spacing="2">
+                    <Label text="Module"/>
+                    <ComboBox fx:id="cbModule" maxWidth="Infinity" promptText="Sélectionner un module"/>
+                </VBox>
+                <HBox spacing="10">
+                    <VBox spacing="2" HBox.hgrow="ALWAYS">
+                        <Label text="Note CC (40%)"/>
+                        <TextField fx:id="txtCC" promptText="0.0 - 20.0"/>
+                    </VBox>
+                    <VBox spacing="2" HBox.hgrow="ALWAYS">
+                        <Label text="Note Examen (60%)"/>
+                        <TextField fx:id="txtExamen" promptText="0.0 - 20.0"/>
+                    </VBox>
+                </HBox>
+            </VBox>
+
+            <Button onAction="#handleSave" text="Enregistrer la Note" styleClass="button-primary" maxWidth="Infinity">
+                <graphic><FontIcon iconLiteral="fas-save"/></graphic>
+            </Button>
+            
+            <Separator/>
+            
+            <VBox spacing="5" fx:id="resultBox" visible="false">
+                <Label text="Résultat du Module" style="-fx-font-weight: bold;"/>
+                <HBox spacing="10">
+                    <Label text="Moyenne:"/>
+                    <Label fx:id="lblMoyenne" style="-fx-font-weight: bold;"/>
+                </HBox>
+                <HBox spacing="10">
+                    <Label text="Mention:"/>
+                    <Label fx:id="lblMention" style="-fx-font-weight: bold;"/>
+                </HBox>
+            </VBox>
+        </VBox>
+
+        <VBox spacing="15" HBox.hgrow="ALWAYS">
+            <Label text="Récapitulatif des Notes" styleClass="title-text" style="-fx-font-size: 18;"/>
+            <TableView fx:id="gradeTable" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="colStudent" text="Étudiant" prefWidth="150"/>
+                    <TableColumn fx:id="colModule" text="Module" prefWidth="150"/>
+                    <TableColumn fx:id="colCC" text="Note CC" prefWidth="80"/>
+                    <TableColumn fx:id="colExamen" text="Note Examen" prefWidth="80"/>
+                    <TableColumn fx:id="colMoyenne" text="Moyenne" prefWidth="80"/>
+                    <TableColumn fx:id="colMention" text="Mention" prefWidth="100"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </HBox>
+</VBox>

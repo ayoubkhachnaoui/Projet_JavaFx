@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<?import javafx.geometry.Insets?>
+
+<HBox spacing="20" xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="org.example.projet_java_fx.controllers.StudentController">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <!-- Form Area -->
+    <VBox spacing="15" prefWidth="350" styleClass="card">
+        <Label text="Informations Étudiant" styleClass="title-text" style="-fx-font-size: 18;"/>
+        
+        <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;">
+            <VBox spacing="10">
+                <VBox spacing="2">
+                    <Label text="Nom"/>
+                    <TextField fx:id="txtNom" promptText="Nom"/>
+                </VBox>
+                <VBox spacing="2">
+                    <Label text="Prénom"/>
+                    <TextField fx:id="txtPrenom" promptText="Prénom"/>
+                </VBox>
+                <VBox spacing="2">
+                    <Label text="CIN"/>
+                    <TextField fx:id="txtCin" promptText="Numéro de CIN"/>
+                </VBox>
+                <VBox spacing="2">
+                    <Label text="Email"/>
+                    <TextField fx:id="txtEmail" promptText="exemple@domaine.com"/>
+                </VBox>
+                <VBox spacing="2">
+                    <Label text="Téléphone"/>
+                    <TextField fx:id="txtTelephone" promptText="Numéro de téléphone"/>
+                </VBox>
+                <VBox spacing="2">
+                    <Label text="Date de Naissance"/>
+                    <DatePicker fx:id="dpDateNaissance" maxWidth="Infinity"/>
+                </VBox>
+                <VBox spacing="2">
+                    <Label text="Niveau"/>
+                    <ComboBox fx:id="cbNiveau" maxWidth="Infinity"/>
+                </VBox>
+                <VBox spacing="2">
+                    <Label text="Filière"/>
+                    <TextField fx:id="txtFiliere" promptText="Filière"/>
+                </VBox>
+                <VBox spacing="2">
+                    <Label text="Groupe"/>
+                    <TextField fx:id="txtGroupe" promptText="Groupe"/>
+                </VBox>
+            </VBox>
+        </ScrollPane>
+
+        <HBox spacing="10">
+            <Button onAction="#handleAdd" text="Ajouter" styleClass="button-primary" HBox.hgrow="ALWAYS" maxWidth="Infinity">
+                <graphic><FontIcon iconLiteral="fas-plus"/></graphic>
+            </Button>
+            <Button onAction="#handleUpdate" text="Modifier" HBox.hgrow="ALWAYS" maxWidth="Infinity">
+                <graphic><FontIcon iconLiteral="fas-edit"/></graphic>
+            </Button>
+        </HBox>
+        <HBox spacing="10">
+            <Button onAction="#handleDelete" text="Supprimer" style="-fx-text-fill: #ef4444;" HBox.hgrow="ALWAYS" maxWidth="Infinity">
+                <graphic><FontIcon iconLiteral="fas-trash-alt" style="-fx-icon-color: #ef4444;"/></graphic>
+            </Button>
+            <Button onAction="#handleClear" text="Vider" HBox.hgrow="ALWAYS" maxWidth="Infinity">
+                <graphic><FontIcon iconLiteral="fas-sync-alt"/></graphic>
+            </Button>
+        </HBox>
+    </VBox>
+
+    <!-- Table Area -->
+    <VBox spacing="15" HBox.hgrow="ALWAYS">
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <TextField fx:id="txtSearch" promptText="Rechercher par nom, CIN, filière..." HBox.hgrow="ALWAYS"/>
+            <Button onAction="#handleSearch">
+                <graphic><FontIcon iconLiteral="fas-search"/></graphic>
+            </Button>
+        </HBox>
+
+        <TableView fx:id="studentTable" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
+                <TableColumn fx:id="colNom" text="Nom" prefWidth="100"/>
+                <TableColumn fx:id="colPrenom" text="Prénom" prefWidth="100"/>
+                <TableColumn fx:id="colCin" text="CIN" prefWidth="80"/>
+                <TableColumn fx:id="colEmail" text="Email" prefWidth="150"/>
+                <TableColumn fx:id="colNiveau" text="Niveau" prefWidth="80"/>
+                <TableColumn fx:id="colFiliere" text="Filière" prefWidth="100"/>
+            </columns>
+        </TableView>
+    </VBox>
+</HBox>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<?import javafx.geometry.Insets?>
+
+<HBox spacing="20" xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="org.example.projet_java_fx.controllers.ModuleController">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <VBox spacing="15" prefWidth="300" styleClass="card">
+        <Label text="Gestion Modules" styleClass="title-text" style="-fx-font-size: 18;"/>
+        
+        <VBox spacing="10">
+            <VBox spacing="2">
+                <Label text="Code Module"/>
+                <TextField fx:id="txtCode" promptText="Ex: JAVA101"/>
+            </VBox>
+            <VBox spacing="2">
+                <Label text="Nom Module"/>
+                <TextField fx:id="txtNom" promptText="Nom du module"/>
+            </VBox>
+            <VBox spacing="2">
+                <Label text="Coefficient"/>
+                <TextField fx:id="txtCoeff" promptText="Ex: 2.5"/>
+            </VBox>
+            <VBox spacing="2">
+                <Label text="Enseignant Responsable"/>
+                <TextField fx:id="txtEnseignant" promptText="Nom de l'enseignant"/>
+            </VBox>
+        </VBox>
+
+        <HBox spacing="10">
+            <Button onAction="#handleAdd" text="Ajouter" styleClass="button-primary" HBox.hgrow="ALWAYS" maxWidth="Infinity">
+                <graphic><FontIcon iconLiteral="fas-plus"/></graphic>
+            </Button>
+            <Button onAction="#handleUpdate" text="Modifier" HBox.hgrow="ALWAYS" maxWidth="Infinity">
+                <graphic><FontIcon iconLiteral="fas-edit"/></graphic>
+            </Button>
+        </HBox>
+        <HBox spacing="10">
+            <Button onAction="#handleDelete" text="Supprimer" style="-fx-text-fill: #ef4444;" HBox.hgrow="ALWAYS" maxWidth="Infinity">
+                <graphic><FontIcon iconLiteral="fas-trash-alt" style="-fx-icon-color: #ef4444;"/></graphic>
+            </Button>
+            <Button onAction="#handleClear" text="Vider" HBox.hgrow="ALWAYS" maxWidth="Infinity">
+                <graphic><FontIcon iconLiteral="fas-sync-alt"/></graphic>
+            </Button>
+        </HBox>
+    </VBox>
+
+    <TableView fx:id="moduleTable" HBox.hgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="colCode" text="Code" prefWidth="100"/>
+            <TableColumn fx:id="colNom" text="Nom" prefWidth="200"/>
+            <TableColumn fx:id="colCoeff" text="Coefficient" prefWidth="100"/>
+            <TableColumn fx:id="colEnseignant" text="Enseignant" prefWidth="150"/>
+        </columns>
+    </TableView>
+</HBox>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.projet_java_fx.controllers.MainController"
+            prefHeight="800.0" prefWidth="1200.0"
+            styleClass="root-pane">
+
+    <left>
+        <VBox styleClass="sidebar" prefWidth="250">
+            <VBox spacing="10" alignment="CENTER" prefHeight="150">
+                <FontIcon iconLiteral="fas-graduation-cap" iconSize="50" styleClass="icon-graphic"/>
+                <Label text="Gestion Académique" styleClass="title-text" style="-fx-font-size: 18;"/>
+            </VBox>
+
+            <Separator/>
+
+            <VBox spacing="5" VBox.vgrow="ALWAYS">
+                <padding>
+                    <Insets top="20"/>
+                </padding>
+                <Button fx:id="btnDashboard" onAction="#showDashboard" styleClass="sidebar-button" text="Tableau de bord">
+                    <graphic><FontIcon iconLiteral="fas-th-large"/></graphic>
+                </Button>
+                <Button fx:id="btnStudents" onAction="#showStudents" styleClass="sidebar-button" text="Étudiants">
+                    <graphic><FontIcon iconLiteral="fas-users"/></graphic>
+                </Button>
+                <Button fx:id="btnModules" onAction="#showModules" styleClass="sidebar-button" text="Modules">
+                    <graphic><FontIcon iconLiteral="fas-book"/></graphic>
+                </Button>
+                <Button fx:id="btnGrades" onAction="#showGrades" styleClass="sidebar-button" text="Notes">
+                    <graphic><FontIcon iconLiteral="fas-list-ol"/></graphic>
+                </Button>
+                <Button fx:id="btnStats" onAction="#showStats" styleClass="sidebar-button" text="Statistiques">
+                    <graphic><FontIcon iconLiteral="fas-chart-bar"/></graphic>
+                </Button>
+            </VBox>
+
+            <VBox spacing="10">
+                <Button onAction="#toggleTheme" styleClass="sidebar-button" text="Changer Thème">
+                    <graphic><FontIcon iconLiteral="fas-adjust"/></graphic>
+                </Button>
+                <Button onAction="#handleLogout" styleClass="sidebar-button" text="Déconnexion" style="-fx-text-fill: #ef4444;">
+                    <graphic><FontIcon iconLiteral="fas-sign-out-alt" style="-fx-icon-color: #ef4444;"/></graphic>
+                </Button>
+                
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <padding><Insets left="20" bottom="10"/></padding>
+                    <FontIcon iconLiteral="fas-user" iconSize="16"/>
+                    <VBox>
+                        <Label fx:id="lblUsername" text="User" style="-fx-font-weight: bold;"/>
+                        <Label fx:id="lblRole" text="Role" styleClass="subtitle-text" style="-fx-font-size: 10;"/>
+                    </VBox>
+                </HBox>
+            </VBox>
+        </VBox>
+    </left>
+
+    <center>
+        <StackPane fx:id="contentArea">
+            <!-- Dynamic content will be loaded here -->
+            <VBox alignment="CENTER" spacing="20">
+                <FontIcon iconLiteral="fas-graduation-cap" iconSize="150" opacity="0.1"/>
+                <Label text="Sélectionnez une option dans le menu" opacity="0.3" styleClass="title-text"/>
+            </VBox>
+        </StackPane>
+    </center>
+
+</BorderPane>
