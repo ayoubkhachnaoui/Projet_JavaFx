@@ -1,38 +1,109 @@
-# Gestion Étudiants & Notes - JavaFX
+# Documentation Technique - Système de Gestion Académique
 
-Système complet de gestion académique développé en **JavaFX 17** avec une architecture **MVC** et une base de données **SQLite**.
+Ce document présente l'architecture logicielle et la structure des données du projet.
 
-## ✨ Fonctionnalités
-- **Authentification sécurisée** : Rôles Admin et Enseignant.
-- **Design Premium** : Interface moderne avec Glassmorphism (Thèmes Clair/Sombre).
-- **Gestion Complète** : CRUD pour Étudiants et Modules.
-- **Système de Notes** : Calcul automatique des moyennes et mentions.
-- **Tableau de Bord Analytics** : Statistiques avancées avec graphiques animés.
-- **Notifications** : Système de toasts modernes pour chaque action.
-- **Exportation** : Génération de rapports au format CSV.
+## 1. Diagramme de Classes (Architecture MVC)
 
-## 🚀 Installation & Exécution
+Le projet suit le design pattern **MVC** (Modèle-Vue-Contrôleur) pour assurer une séparation nette entre la logique métier et l'interface utilisateur.
 
-### Prérequis
-- **JDK 17** ou supérieur.
-- **Maven** (inclus via le wrapper `mvnw`).
+```mermaid
+classDiagram
+    class MainApp {
+        +start(Stage)
+    }
 
-### Lancement
-Clonez le dépôt et lancez l'application avec la commande suivante à la racine du projet :
+    class DatabaseConnection {
+        +getConnection() Connection
+        +initializeDatabase()
+    }
 
-```powershell
-.\mvnw.cmd clean javafx:run
+    class Student {
+        +int id
+        +String nom
+        +String prenom
+        +String cin
+        +String niveau
+    }
+
+    class Grade {
+        +int studentId
+        +String moduleCode
+        +double noteCC
+        +double noteExamen
+        +calculateMoyenne() double
+    }
+
+    class Module {
+        +String code
+        +String nom
+        +double coefficient
+    }
+
+    class MainController {
+        +showStudents()
+        +showModules()
+        +showGrades()
+    }
+
+    MainApp ..> DatabaseConnection : Initialise
+    MainController --> Student : Gère
+    MainController --> Module : Gère
+    Grade --> Student : Appartient à
+    Grade --> Module : Concerne
 ```
 
-## 🛠️ Technologies
-- **JavaFX 17** : Interface graphique.
-- **SQLite** : Persistance des données.
-- **Ikonli (FontAwesome 5)** : Icônes vectorielles.
-- **ControlsFX** : Composants UI avancés (Notifications).
-- **CSS3** : Styling personnalisé et Glassmorphism.
+## 2. Modèle Conceptuel de Données (MCD)
 
-## 📊 Structure de la Base de Données
-Consultez le fichier `schema.sql` pour voir la structure des tables.
+La base de données SQLite est structurée pour optimiser les relations entre les étudiants, les modules et les notes.
 
----
-*Projet réalisé dans le cadre d'un module de programmation Java.*
+```mermaid
+erDiagram
+    USERS {
+        int id PK
+        string username
+        string password
+        string role
+    }
+    STUDENTS {
+        int id PK
+        string nom
+        string prenom
+        string cin
+        string email
+        string filiere
+    }
+    MODULES {
+        string code PK
+        string nom
+        float coefficient
+        string enseignant
+    }
+    GRADES {
+        int student_id FK
+        string module_code FK
+        float note_cc
+        float note_examen
+    }
+
+    STUDENTS ||--o{ GRADES : "possède"
+    MODULES ||--o{ GRADES : "contient"
+```
+
+## 3. Logique de Calcul des Notes
+
+Le système applique la règle suivante pour le calcul de la réussite :
+- **Moyenne** = `(Note CC * 0.4) + (Note Examen * 0.6)`
+- **Validation** : Admise si `Moyenne >= 10`.
+- **Mentions** :
+    - `< 10` : Ajourné
+    - `[10, 12[` : Passable
+    - `[12, 14[` : Assez Bien
+    - `[14, 16[` : Bien
+    - `>= 16` : Très Bien
+
+## 4. Gestion des Thèmes
+
+L'application utilise une architecture de styles dynamique :
+- `base.css` : Structures de base et animations.
+- `light-theme.css` : Couleurs claires et effets de transparence.
+- `dark-theme.css` : Mode sombre avec esthétique "Cyber-Glass".
