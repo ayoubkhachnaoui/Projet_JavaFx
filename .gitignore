@@ -8,7 +8,8 @@ release.properties
 dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
-.mvn/wrapper/maven-wrapper.jar
+# Keep the wrapper jar if you want others to build easily
+# !.mvn/wrapper/maven-wrapper.jar
 
 # IDEs
 .idea/
@@ -19,14 +20,28 @@ buildNumber.properties
 .project
 .factorypath
 .vscode/
+*.sublime-project
+*.sublime-workspace
 
 # Database
+# Ignored by default to prevent large binary blobs in git
 *.db
 *.db-journal
+*.sqlite
 
 # OS
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
 
 # Log files
 *.log
+
+# Temp files
+*.tmp
+*.bak
+*.swp
