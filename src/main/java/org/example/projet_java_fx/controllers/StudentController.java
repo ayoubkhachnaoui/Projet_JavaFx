@@ -7,7 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.example.projet_java_fx.models.Student;
 import org.example.projet_java_fx.utils.DatabaseConnection;
-import org.example.projet_java_fx.utils.NotificationService;
+import org.example.projet_java_fx.utils.NotificationUtils;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -17,6 +17,7 @@ public class StudentController {
     @FXML private TextField txtNom, txtPrenom, txtCin, txtEmail, txtTelephone, txtFiliere, txtGroupe, txtSearch;
     @FXML private DatePicker dpDateNaissance;
     @FXML private ComboBox<String> cbNiveau;
+    @FXML private Button btnAdd, btnUpdate;
     @FXML private TableView<Student> studentTable;
     @FXML private TableColumn<Student, Integer> colId;
     @FXML private TableColumn<Student, String> colNom, colPrenom, colCin, colEmail, colNiveau, colFiliere;
@@ -25,6 +26,7 @@ public class StudentController {
 
     @FXML
     public void initialize() {
+        setupBindings();
         cbNiveau.setItems(FXCollections.observableArrayList("ING 1", "ING 2", "ING 3", "PREPA 1", "PREPA 2"));
         
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -40,6 +42,27 @@ public class StudentController {
         studentTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 populateForm(newSelection);
+            }
+        });
+    }
+
+    private void setupBindings() {
+        // Bind disableProperty to validate that txtNom and txtPrenom are not empty
+        btnAdd.disableProperty().bind(
+                txtNom.textProperty().isEmpty()
+                .or(txtPrenom.textProperty().isEmpty())
+        );
+        btnUpdate.disableProperty().bind(
+                txtNom.textProperty().isEmpty()
+                .or(txtPrenom.textProperty().isEmpty())
+        );
+
+        // Dynamically change the -fx-border-color of a TextField to red if the input fails regex validation
+        txtEmail.textProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+                txtEmail.setStyle("-fx-border-color: transparent;");
+            } else {
+                txtEmail.setStyle("-fx-border-color: #ef4444; -fx-border-width: 2px;");
             }
         });
     }
@@ -89,12 +112,12 @@ public class StudentController {
             pstmt.setString(9, txtGroupe.getText());
 
             pstmt.executeUpdate();
-            NotificationService.showSuccess("Succès", "Étudiant ajouté avec succès.");
+            NotificationUtils.showSuccess("Succès", "Étudiant ajouté avec succès.");
             loadStudents();
             handleClear();
         } catch (SQLException e) {
             if (e.getMessage().contains("UNIQUE")) {
-                NotificationService.showError("Erreur", "Un étudiant avec ce CIN existe déjà.");
+                NotificationUtils.showError("Erreur", "Un étudiant avec ce CIN existe déjà.");
             } else {
                 e.printStackTrace();
             }
@@ -105,7 +128,7 @@ public class StudentController {
     private void handleUpdate() {
         Student selected = studentTable.getSelectionModel().getSelectedItem();
         if (selected == null) {
-            NotificationService.showWarning("Attention", "Veuillez sélectionner un étudiant.");
+            NotificationUtils.showWarning("Attention", "Veuillez sélectionner un étudiant.");
             return;
         }
 
@@ -127,7 +150,7 @@ public class StudentController {
             pstmt.setInt(10, selected.getId());
 
             pstmt.executeUpdate();
-            NotificationService.showSuccess("Succès", "Étudiant mis à jour.");
+            NotificationUtils.showSuccess("Succès", "Étudiant mis à jour.");
             loadStudents();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -138,7 +161,7 @@ public class StudentController {
     private void handleDelete() {
         Student selected = studentTable.getSelectionModel().getSelectedItem();
         if (selected == null) {
-            NotificationService.showWarning("Attention", "Veuillez sélectionner un étudiant.");
+            NotificationUtils.showWarning("Attention", "Veuillez sélectionner un étudiant.");
             return;
         }
 
@@ -146,7 +169,7 @@ public class StudentController {
              PreparedStatement pstmt = conn.prepareStatement("DELETE FROM students WHERE id=?")) {
             pstmt.setInt(1, selected.getId());
             pstmt.executeUpdate();
-            NotificationService.showSuccess("Succès", "Étudiant supprimé.");
+            NotificationUtils.showSuccess("Succès", "Étudiant supprimé.");
             loadStudents();
             handleClear();
         } catch (SQLException e) {
@@ -203,15 +226,15 @@ public class StudentController {
     private boolean validateInput() {
         if (txtNom.getText().isEmpty() || txtPrenom.getText().isEmpty() || txtCin.getText().isEmpty() ||
             txtEmail.getText().isEmpty() || cbNiveau.getValue() == null) {
-            NotificationService.showWarning("Validation", "Veuillez remplir les champs obligatoires.");
+            NotificationUtils.showWarning("Validation", "Veuillez remplir les champs obligatoires.");
             return false;
         }
         if (!txtEmail.getText().contains("@")) {
-            NotificationService.showWarning("Validation", "Email invalide.");
+            NotificationUtils.showWarning("Validation", "Email invalide.");
             return false;
         }
         if (!txtTelephone.getText().matches("\\d+")) {
-            NotificationService.showWarning("Validation", "Le téléphone doit contenir uniquement des chiffres.");
+            NotificationUtils.showWarning("Validation", "Le téléphone doit contenir uniquement des chiffres.");
             return false;
         }
         return true;

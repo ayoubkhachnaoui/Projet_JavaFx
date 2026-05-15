@@ -58,10 +58,10 @@
         </ScrollPane>
 
         <HBox spacing="10">
-            <Button onAction="#handleAdd" text="Ajouter" styleClass="button-primary" HBox.hgrow="ALWAYS" maxWidth="Infinity">
+            <Button fx:id="btnAdd" onAction="#handleAdd" text="Ajouter" styleClass="button-primary" HBox.hgrow="ALWAYS" maxWidth="Infinity">
                 <graphic><FontIcon iconLiteral="fas-plus"/></graphic>
             </Button>
-            <Button onAction="#handleUpdate" text="Modifier" HBox.hgrow="ALWAYS" maxWidth="Infinity">
+            <Button fx:id="btnUpdate" onAction="#handleUpdate" text="Modifier" HBox.hgrow="ALWAYS" maxWidth="Infinity">
                 <graphic><FontIcon iconLiteral="fas-edit"/></graphic>
             </Button>
         </HBox>

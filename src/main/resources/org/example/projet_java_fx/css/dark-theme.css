@@ -4,16 +4,19 @@
     -fx-text-fill: #f8fafc;
 }
 
+.root-pane {
+    -fx-background-color: linear-gradient(to bottom right, #1e1b4b, #312e81, #4338ca);
+}
+
 .sidebar {
     -fx-background-color: rgba(15, 23, 42, 0.7);
     -fx-background-radius: 0 30 30 0;
-    -fx-border-color: rgba(255, 255, 255, 0.05);
+    -fx-border-color: rgba(255, 255, 255, 0.1);
     -fx-border-width: 0 1 0 0;
 }
 
 .sidebar-button {
     -fx-text-fill: #94a3b8;
-    -fx-background-radius: 15;
 }
 
 .sidebar-button:hover {
@@ -22,10 +25,18 @@
 }
 
 .sidebar-button-active {
-    -fx-background-color: linear-gradient(to right, #3b82f6, #2563eb);
-    -fx-text-fill: white;
-    -fx-effect: dropshadow(three-pass-box, rgba(59, 130, 246, 0.4), 10, 0, 0, 5);
+    -fx-background-color: linear-gradient(to right, rgba(59, 130, 246, 0.2), rgba(59, 130, 246, 0.05));
+    -fx-text-fill: #60a5fa;
+    -fx-border-color: #3b82f6;
+    -fx-border-width: 0 0 0 4;
 }
+
+/* Dark Mode Chart Bars */
+.default-color0.chart-bar { -fx-bar-fill: #3b82f6; }
+.default-color1.chart-bar { -fx-bar-fill: #10b981; }
+.default-color2.chart-bar { -fx-bar-fill: #f59e0b; }
+.default-color3.chart-bar { -fx-bar-fill: #ef4444; }
+.default-color4.chart-bar { -fx-bar-fill: #8b5cf6; }
 
 .card {
     -fx-background-color: rgba(30, 41, 59, 0.5);
@@ -38,24 +49,19 @@
 
 .button-primary {
     -fx-background-color: linear-gradient(to bottom, #3b82f6, #2563eb);
-    -fx-background-radius: 15;
     -fx-text-fill: white;
     -fx-effect: dropshadow(three-pass-box, rgba(37, 99, 235, 0.3), 8, 0, 0, 4);
 }
 
 .text-field, .password-field, .combo-box, .date-picker {
     -fx-background-color: rgba(15, 23, 42, 0.6);
-    -fx-background-radius: 15;
     -fx-border-color: rgba(255, 255, 255, 0.1);
-    -fx-border-radius: 15;
     -fx-text-fill: white;
     -fx-prompt-text-fill: #64748b;
 }
 
 .table-view {
     -fx-background-color: rgba(15, 23, 42, 0.3);
-    -fx-background-radius: 20;
-    -fx-border-radius: 20;
     -fx-border-color: rgba(255, 255, 255, 0.05);
 }
 

@@ -35,7 +35,7 @@
             </VBox>
         </VBox>
 
-        <Button fx:id="loginButton" text="Se connecter" onAction="#handleLogin" 
+        <Button fx:id="btnLogin" text="Se connecter" onAction="#handleLogin" 
                 maxWidth="Infinity" styleClass="button-primary"/>
         
         <Label fx:id="errorLabel" textFill="red" wrapText="true" alignment="CENTER"/>
@@ -45,7 +45,7 @@
         <padding>
             <Insets bottom="20" right="20"/>
         </padding>
-        <Button onAction="#toggleTheme" styleClass="button">
+        <Button fx:id="btnTheme" onAction="#toggleTheme" styleClass="button">
             <graphic>
                 <FontIcon iconLiteral="fas-adjust" iconSize="20"/>
             </graphic>

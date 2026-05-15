@@ -37,7 +37,7 @@
                 </HBox>
             </VBox>
 
-            <Button onAction="#handleSave" text="Enregistrer la Note" styleClass="button-primary" maxWidth="Infinity">
+            <Button fx:id="btnSave" onAction="#handleSave" text="Enregistrer la Note" styleClass="button-primary" maxWidth="Infinity">
                 <graphic><FontIcon iconLiteral="fas-save"/></graphic>
             </Button>
             

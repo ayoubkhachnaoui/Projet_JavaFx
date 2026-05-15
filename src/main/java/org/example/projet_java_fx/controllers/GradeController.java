@@ -11,7 +11,7 @@ import org.example.projet_java_fx.models.Grade;
 import org.example.projet_java_fx.models.Module;
 import org.example.projet_java_fx.models.Student;
 import org.example.projet_java_fx.utils.DatabaseConnection;
-import org.example.projet_java_fx.utils.NotificationService;
+import org.example.projet_java_fx.utils.NotificationUtils;
 
 import java.sql.*;
 import java.util.HashMap;
@@ -24,6 +24,7 @@ public class GradeController {
     @FXML private TextField txtCC, txtExamen;
     @FXML private Label lblMoyenne, lblMention;
     @FXML private VBox resultBox;
+    @FXML private Button btnSave;
     @FXML private TableView<Grade> gradeTable;
     @FXML private TableColumn<Grade, String> colStudent, colModule, colMention;
     @FXML private TableColumn<Grade, Double> colCC, colExamen, colMoyenne;
@@ -34,6 +35,7 @@ public class GradeController {
     @FXML
     public void initialize() {
         setupColumns();
+        setupBindings();
         loadFormData();
         loadGrades();
 
@@ -44,13 +46,62 @@ public class GradeController {
         });
     }
 
+    private void setupBindings() {
+        // Bind disableProperty to validate selection
+        btnSave.disableProperty().bind(
+                cbStudent.valueProperty().isNull()
+                .or(cbModule.valueProperty().isNull())
+                .or(txtCC.textProperty().isEmpty())
+                .or(txtExamen.textProperty().isEmpty())
+        );
+
+        // Dynamic border color for numerical validation
+        txtCC.textProperty().addListener((obs, oldVal, newVal) -> validateNoteField(txtCC, newVal));
+        txtExamen.textProperty().addListener((obs, oldVal, newVal) -> validateNoteField(txtExamen, newVal));
+    }
+
+    private void validateNoteField(TextField field, String value) {
+        try {
+            double val = Double.parseDouble(value);
+            if (val >= 0 && val <= 20) {
+                field.setStyle("-fx-border-color: transparent;");
+            } else {
+                field.setStyle("-fx-border-color: #ef4444; -fx-border-width: 2px;");
+            }
+        } catch (NumberFormatException e) {
+            field.setStyle("-fx-border-color: #ef4444; -fx-border-width: 2px;");
+        }
+    }
+
     private void setupColumns() {
         colStudent.setCellValueFactory(data -> new SimpleStringProperty(studentNames.getOrDefault(data.getValue().getStudentId(), "Unknown")));
         colModule.setCellValueFactory(data -> new SimpleStringProperty(moduleNames.getOrDefault(data.getValue().getModuleCode(), "Unknown")));
         colCC.setCellValueFactory(new PropertyValueFactory<>("noteCC"));
         colExamen.setCellValueFactory(new PropertyValueFactory<>("noteExamen"));
         colMoyenne.setCellValueFactory(data -> new javafx.beans.property.SimpleDoubleProperty(data.getValue().getMoyenne()).asObject());
-        colMention.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getMention()));
+        
+        colMention.setCellFactory(column -> new TableCell<Grade, String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setGraphic(null);
+                } else {
+                    Label label = new Label(item);
+                    label.getStyleClass().add("badge");
+                    if (item.contains("Ajourné") || item.contains("Insuffisant")) {
+                        label.getStyleClass().add("badge-danger");
+                    } else if (item.contains("Passable")) {
+                        label.getStyleClass().add("badge-warning");
+                    } else if (item.contains("Assez Bien")) {
+                        label.getStyleClass().add("badge-info");
+                    } else {
+                        label.getStyleClass().add("badge-success");
+                    }
+                    setGraphic(label);
+                }
+            }
+        });
     }
 
     private void loadFormData() {
@@ -123,7 +174,7 @@ public class GradeController {
             lblMention.setText(g.getMention());
             resultBox.setVisible(true);
             
-            NotificationService.showSuccess("Succès", "Note enregistrée.");
+            NotificationUtils.showSuccess("Succès", "Note enregistrée.");
             loadGrades();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -156,12 +207,12 @@ public class GradeController {
             double cc = Double.parseDouble(txtCC.getText());
             double ex = Double.parseDouble(txtExamen.getText());
             if (cc < 0 || cc > 20 || ex < 0 || ex > 20) {
-                NotificationService.showWarning("Validation", "Les notes doivent être entre 0 et 20.");
+                NotificationUtils.showWarning("Validation", "Les notes doivent être entre 0 et 20.");
                 return false;
             }
             return true;
         } catch (NumberFormatException e) {
-            NotificationService.showWarning("Validation", "Notes invalides.");
+            NotificationUtils.showWarning("Validation", "Notes invalides.");
             return false;
         }
     }

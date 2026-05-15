@@ -8,6 +8,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import org.example.projet_java_fx.utils.AnimationUtils;
+import org.example.projet_java_fx.utils.NotificationUtils;
 import org.example.projet_java_fx.utils.ThemeManager;
 
 import java.io.IOException;
@@ -17,7 +19,22 @@ public class MainController {
     @FXML private StackPane contentArea;
     @FXML private Label lblUsername;
     @FXML private Label lblRole;
-    @FXML private Button btnStudents, btnModules, btnGrades, btnStats;
+    @FXML private Button btnStudents, btnModules, btnGrades, btnStats, btnLogout, btnDashboard, btnTheme;
+
+    @FXML
+    public void initialize() {
+        // Apply hover animations to sidebar buttons
+        AnimationUtils.applyButtonHoverAnimation(btnDashboard);
+        AnimationUtils.applyButtonHoverAnimation(btnStudents);
+        AnimationUtils.applyButtonHoverAnimation(btnModules);
+        AnimationUtils.applyButtonHoverAnimation(btnGrades);
+        AnimationUtils.applyButtonHoverAnimation(btnStats);
+        AnimationUtils.applyButtonHoverAnimation(btnTheme);
+        AnimationUtils.applyButtonHoverAnimation(btnLogout);
+        
+        // Initial view
+        showDashboard();
+    }
 
     public void setUserInfo(String username, String role) {
         lblUsername.setText(username);
@@ -25,8 +42,8 @@ public class MainController {
         
         // Restrict access based on role
         if ("ENSEIGNANT".equals(role)) {
-            btnStudents.setDisable(true); // Teacher might only view students, but let's say they can't manage
-            btnModules.setDisable(true);
+            if (btnStudents != null) btnStudents.setDisable(true);
+            if (btnModules != null) btnModules.setDisable(true);
         }
     }
 
@@ -59,14 +76,19 @@ public class MainController {
         try {
             Parent view = FXMLLoader.load(getClass().getResource(fxmlPath));
             contentArea.getChildren().setAll(view);
+            // Apply entrance animation
+            AnimationUtils.animateViewEntrance(view);
         } catch (IOException e) {
             e.printStackTrace();
+            NotificationUtils.showError("Error", "Could not load view: " + fxmlPath);
         }
     }
 
     @FXML
     private void toggleTheme() {
         ThemeManager.toggleTheme(contentArea.getScene());
+        String themeName = ThemeManager.isDarkMode() ? "Dark" : "Light";
+        NotificationUtils.showSuccess("Theme Changed", "Active Theme: " + themeName);
     }
 
     @FXML

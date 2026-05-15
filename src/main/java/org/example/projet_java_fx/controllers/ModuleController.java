@@ -7,7 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.example.projet_java_fx.models.Module;
 import org.example.projet_java_fx.utils.DatabaseConnection;
-import org.example.projet_java_fx.utils.NotificationService;
+import org.example.projet_java_fx.utils.NotificationUtils;
 
 import java.sql.*;
 
@@ -73,11 +73,11 @@ public class ModuleController {
             pstmt.setString(4, txtEnseignant.getText());
 
             pstmt.executeUpdate();
-            NotificationService.showSuccess("Succès", "Module ajouté.");
+            NotificationUtils.showSuccess("Succès", "Module ajouté.");
             loadModules();
             handleClear();
         } catch (SQLException e) {
-            NotificationService.showError("Erreur", "Le code module doit être unique.");
+            NotificationUtils.showError("Erreur", "Le code module doit être unique.");
         }
     }
 
@@ -96,7 +96,7 @@ public class ModuleController {
             pstmt.setString(4, txtCode.getText());
 
             pstmt.executeUpdate();
-            NotificationService.showSuccess("Succès", "Module mis à jour.");
+            NotificationUtils.showSuccess("Succès", "Module mis à jour.");
             loadModules();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -112,7 +112,7 @@ public class ModuleController {
              PreparedStatement pstmt = conn.prepareStatement("DELETE FROM modules WHERE code=?")) {
             pstmt.setString(1, selected.getCode());
             pstmt.executeUpdate();
-            NotificationService.showSuccess("Succès", "Module supprimé.");
+            NotificationUtils.showSuccess("Succès", "Module supprimé.");
             loadModules();
             handleClear();
         } catch (SQLException e) {
@@ -134,12 +134,12 @@ public class ModuleController {
             if (txtCode.getText().isEmpty() || txtNom.getText().isEmpty()) return false;
             double coeff = Double.parseDouble(txtCoeff.getText());
             if (coeff <= 0) {
-                NotificationService.showWarning("Validation", "Le coefficient doit être supérieur à 0.");
+                NotificationUtils.showWarning("Validation", "Le coefficient doit être supérieur à 0.");
                 return false;
             }
             return true;
         } catch (NumberFormatException e) {
-            NotificationService.showWarning("Validation", "Coefficient invalide.");
+            NotificationUtils.showWarning("Validation", "Coefficient invalide.");
             return false;
         }
     }

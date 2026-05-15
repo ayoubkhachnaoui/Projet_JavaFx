@@ -1,5 +1,7 @@
 package org.example.projet_java_fx.utils;
 
+import org.example.projet_java_fx.utils.NotificationUtils;
+
 import java.io.PrintWriter;
 import java.sql.*;
 
@@ -22,10 +24,10 @@ public class ReportGenerator {
                         rs.getString("niveau"),
                         rs.getString("filiere"));
             }
-            NotificationService.showSuccess("Export Réussi", "La liste des étudiants a été exportée vers " + filePath);
+            NotificationUtils.showSuccess("Export Réussi", "La liste des étudiants a été exportée vers " + filePath);
 
         } catch (Exception e) {
-            NotificationService.showError("Erreur Export", "Impossible d'exporter les données.");
+            NotificationUtils.showError("Erreur Export", "Impossible d'exporter les données.");
             e.printStackTrace();
         }
     }

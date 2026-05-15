@@ -21,6 +21,13 @@ public class StatsController {
     public void initialize() {
         cbFilterNiveau.setItems(FXCollections.observableArrayList("Tous les niveaux", "ING 1", "ING 2", "ING 3", "PREPA 1", "PREPA 2"));
         cbFilterNiveau.setValue("Tous les niveaux");
+        
+        // Modernize charts
+        barChart.setLegendVisible(false);
+        successChart.setLegendVisible(false);
+        barChart.setAnimated(false);
+        successChart.setAnimated(false);
+        
         refreshStats();
     }
 

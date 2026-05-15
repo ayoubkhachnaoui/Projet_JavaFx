@@ -3,13 +3,13 @@
 }
 
 .root-pane {
+    /* Base gradient for the whole application */
     -fx-background-color: linear-gradient(to bottom right, #6366f1, #a855f7, #ec4899);
 }
 
 .button {
     -fx-cursor: hand;
     -fx-padding: 10 20;
-    -fx-transition: all 0.3s;
     -fx-font-weight: bold;
     -fx-background-radius: 15;
     -fx-border-radius: 15;
@@ -43,19 +43,67 @@
     -fx-opacity: 0.8;
 }
 
-/* Animations for charts */
-.chart {
-    -fx-padding: 10;
-}
-
-.chart-content {
+.text-field, .password-field, .combo-box, .date-picker {
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
     -fx-padding: 10;
 }
 
 .table-view {
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
     -fx-padding: 5;
 }
 
 .table-view .table-column {
     -fx-alignment: CENTER_LEFT;
+}
+
+/* Common Glass Effect Class */
+.glass {
+    -fx-background-radius: 25;
+    -fx-border-radius: 25;
+    -fx-border-width: 1;
+}
+
+/* Scrollbar Styling */
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+.scroll-bar:vertical, .scroll-bar:horizontal {
+    -fx-background-color: transparent;
+}
+.scroll-bar:vertical .thumb, .scroll-bar:horizontal .thumb {
+    -fx-background-color: rgba(255, 255, 255, 0.2);
+    -fx-background-radius: 10;
+}
+
+/* Status Badges */
+.badge {
+    -fx-padding: 2 10;
+    -fx-background-radius: 10;
+    -fx-font-size: 11;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+.badge-success { -fx-background-color: #10b981; }
+.badge-danger { -fx-background-color: #ef4444; }
+.badge-warning { -fx-background-color: #f59e0b; }
+.badge-info { -fx-background-color: #3b82f6; }
+
+/* Chart Styling */
+.chart-plot-background {
+    -fx-background-color: transparent;
+}
+.chart-vertical-grid-lines, .chart-horizontal-grid-lines {
+    -fx-stroke: rgba(255, 255, 255, 0.05);
+}
+.chart-alternative-column-fill, .chart-alternative-row-fill {
+    -fx-fill: transparent;
+}
+.chart-legend {
+    -fx-background-color: transparent;
 }

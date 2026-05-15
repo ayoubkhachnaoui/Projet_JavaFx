@@ -20,33 +20,34 @@
 
             <Separator/>
 
-            <VBox spacing="5" VBox.vgrow="ALWAYS">
+            <VBox spacing="8" VBox.vgrow="ALWAYS">
                 <padding>
-                    <Insets top="20"/>
+                    <Insets top="20" left="10" right="10"/>
                 </padding>
                 <Button fx:id="btnDashboard" onAction="#showDashboard" styleClass="sidebar-button" text="Tableau de bord">
-                    <graphic><FontIcon iconLiteral="fas-th-large"/></graphic>
+                    <graphic><FontIcon iconLiteral="fas-chart-line" iconSize="18"/></graphic>
                 </Button>
-                <Button fx:id="btnStudents" onAction="#showStudents" styleClass="sidebar-button" text="Étudiants">
-                    <graphic><FontIcon iconLiteral="fas-users"/></graphic>
+                <Button fx:id="btnStudents" onAction="#showStudents" styleClass="sidebar-button" text="Gestion Étudiants">
+                    <graphic><FontIcon iconLiteral="fas-user-graduate" iconSize="18"/></graphic>
                 </Button>
-                <Button fx:id="btnModules" onAction="#showModules" styleClass="sidebar-button" text="Modules">
-                    <graphic><FontIcon iconLiteral="fas-book"/></graphic>
+                <Button fx:id="btnModules" onAction="#showModules" styleClass="sidebar-button" text="Programmes/Modules">
+                    <graphic><FontIcon iconLiteral="fas-layer-group" iconSize="18"/></graphic>
                 </Button>
-                <Button fx:id="btnGrades" onAction="#showGrades" styleClass="sidebar-button" text="Notes">
-                    <graphic><FontIcon iconLiteral="fas-list-ol"/></graphic>
+                <Button fx:id="btnGrades" onAction="#showGrades" styleClass="sidebar-button" text="Bulletins &amp; Notes">
+                    <graphic><FontIcon iconLiteral="fas-file-invoice" iconSize="18"/></graphic>
                 </Button>
-                <Button fx:id="btnStats" onAction="#showStats" styleClass="sidebar-button" text="Statistiques">
-                    <graphic><FontIcon iconLiteral="fas-chart-bar"/></graphic>
+                <Button fx:id="btnStats" onAction="#showStats" styleClass="sidebar-button" text="Rapports Stats">
+                    <graphic><FontIcon iconLiteral="fas-chart-bar" iconSize="18"/></graphic>
                 </Button>
             </VBox>
 
             <VBox spacing="10">
-                <Button onAction="#toggleTheme" styleClass="sidebar-button" text="Changer Thème">
-                    <graphic><FontIcon iconLiteral="fas-adjust"/></graphic>
+                <padding><Insets left="10" right="10" bottom="10"/></padding>
+                <Button fx:id="btnTheme" onAction="#toggleTheme" styleClass="sidebar-button" text="Mode Sombre/Clair">
+                    <graphic><FontIcon iconLiteral="fas-moon" iconSize="18"/></graphic>
                 </Button>
-                <Button onAction="#handleLogout" styleClass="sidebar-button" text="Déconnexion" style="-fx-text-fill: #ef4444;">
-                    <graphic><FontIcon iconLiteral="fas-sign-out-alt" style="-fx-icon-color: #ef4444;"/></graphic>
+                <Button fx:id="btnLogout" onAction="#handleLogout" styleClass="sidebar-button" text="Se déconnecter" style="-fx-text-fill: #ef4444;">
+                    <graphic><FontIcon iconLiteral="fas-power-off" iconSize="18" style="-fx-icon-color: #ef4444;"/></graphic>
                 </Button>
                 
                 <HBox spacing="10" alignment="CENTER_LEFT">

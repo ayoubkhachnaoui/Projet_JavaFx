@@ -6,8 +6,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import org.example.projet_java_fx.utils.AnimationUtils;
 import org.example.projet_java_fx.utils.DatabaseConnection;
-import org.example.projet_java_fx.utils.NotificationService;
+import org.example.projet_java_fx.utils.NotificationUtils;
 import org.example.projet_java_fx.utils.ThemeManager;
 
 import java.io.IOException;
@@ -21,6 +22,13 @@ public class LoginController {
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
     @FXML private Label errorLabel;
+    @FXML private Button btnLogin, btnTheme;
+
+    @FXML
+    public void initialize() {
+        AnimationUtils.applyButtonHoverAnimation(btnLogin);
+        AnimationUtils.applyButtonHoverAnimation(btnTheme);
+    }
 
     @FXML
     private void handleLogin() {
@@ -41,7 +49,7 @@ public class LoginController {
 
             if (rs.next()) {
                 String role = rs.getString("role");
-                NotificationService.showSuccess("Connexion réussie", "Bienvenue " + username);
+                NotificationUtils.showSuccess("Connexion réussie", "Bienvenue " + username);
                 navigateToMain(role);
             } else {
                 errorLabel.setText("Identifiants incorrects.");
@@ -76,5 +84,7 @@ public class LoginController {
     @FXML
     private void toggleTheme() {
         ThemeManager.toggleTheme(usernameField.getScene());
+        String themeName = ThemeManager.isDarkMode() ? "Dark" : "Light";
+        NotificationUtils.showSuccess("Theme Changed", "Active Theme: " + themeName);
     }
 }
