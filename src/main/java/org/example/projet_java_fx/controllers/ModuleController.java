@@ -15,9 +15,9 @@ import java.sql.*;
 
 public class ModuleController {
 
-    @FXML private TextField txtCode, txtNom, txtCoeff, txtEnseignant;
+    @FXML private TextField txtCode, txtNom, txtCoeff, txtEnseignant, txtIdAffectation, txtDocumentPath;
     @FXML private TableView<Module> moduleTable;
-    @FXML private TableColumn<Module, String> colCode, colNom, colEnseignant;
+    @FXML private TableColumn<Module, String> colCode, colNom, colEnseignant, colIdAffectation, colDocumentPath;
     @FXML private TableColumn<Module, Double> colCoeff;
 
     private ObservableList<Module> moduleList = FXCollections.observableArrayList();
@@ -28,6 +28,8 @@ public class ModuleController {
         colNom.setCellValueFactory(new PropertyValueFactory<>("nom"));
         colCoeff.setCellValueFactory(new PropertyValueFactory<>("coefficient"));
         colEnseignant.setCellValueFactory(new PropertyValueFactory<>("enseignant"));
+        colIdAffectation.setCellValueFactory(new PropertyValueFactory<>("idAffectation"));
+        colDocumentPath.setCellValueFactory(new PropertyValueFactory<>("documentPath"));
 
         loadModules();
 
@@ -37,6 +39,8 @@ public class ModuleController {
                 txtNom.setText(newSelection.getNom());
                 txtCoeff.setText(String.valueOf(newSelection.getCoefficient()));
                 txtEnseignant.setText(newSelection.getEnseignant());
+                txtIdAffectation.setText(newSelection.getIdAffectation() != null ? newSelection.getIdAffectation() : "");
+                txtDocumentPath.setText(newSelection.getDocumentPath() != null ? newSelection.getDocumentPath() : "");
             }
         });
     }
@@ -52,7 +56,9 @@ public class ModuleController {
                         rs.getString("code"),
                         rs.getString("nom"),
                         rs.getDouble("coefficient"),
-                        rs.getString("enseignant")
+                        rs.getString("enseignant"),
+                        rs.getString("id_affectation"),
+                        rs.getString("document_path")
                 ));
             }
             moduleTable.setItems(moduleList);
@@ -67,12 +73,14 @@ public class ModuleController {
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(
-                     "INSERT INTO modules (code, nom, coefficient, enseignant) VALUES (?,?,?,?)")) {
+                     "INSERT INTO modules (code, nom, coefficient, enseignant, id_affectation, document_path) VALUES (?,?,?,?,?,?)")) {
             
             pstmt.setString(1, txtCode.getText());
             pstmt.setString(2, txtNom.getText());
             pstmt.setDouble(3, Double.parseDouble(txtCoeff.getText()));
             pstmt.setString(4, txtEnseignant.getText());
+            pstmt.setString(5, txtIdAffectation.getText());
+            pstmt.setString(6, txtDocumentPath.getText());
 
             pstmt.executeUpdate();
             NotificationUtils.showSuccess("Succès", "Module ajouté.");
@@ -90,12 +98,14 @@ public class ModuleController {
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(
-                     "UPDATE modules SET nom=?, coefficient=?, enseignant=? WHERE code=?")) {
+                     "UPDATE modules SET nom=?, coefficient=?, enseignant=?, id_affectation=?, document_path=? WHERE code=?")) {
             
             pstmt.setString(1, txtNom.getText());
             pstmt.setDouble(2, Double.parseDouble(txtCoeff.getText()));
             pstmt.setString(3, txtEnseignant.getText());
-            pstmt.setString(4, txtCode.getText());
+            pstmt.setString(4, txtIdAffectation.getText());
+            pstmt.setString(5, txtDocumentPath.getText());
+            pstmt.setString(6, txtCode.getText());
 
             pstmt.executeUpdate();
             NotificationUtils.showSuccess("Succès", "Module mis à jour.");
@@ -128,7 +138,22 @@ public class ModuleController {
         txtNom.clear();
         txtCoeff.clear();
         txtEnseignant.clear();
+        txtIdAffectation.clear();
+        txtDocumentPath.clear();
         moduleTable.getSelectionModel().clearSelection();
+    }
+
+    @FXML
+    private void handleChooseDocument() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Sélectionner un document (PDF ou Word)");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Documents", "*.pdf", "*.doc", "*.docx")
+        );
+        File file = fileChooser.showOpenDialog(moduleTable.getScene().getWindow());
+        if (file != null) {
+            txtDocumentPath.setText(file.getAbsolutePath());
+        }
     }
 
     private boolean validateInput() {

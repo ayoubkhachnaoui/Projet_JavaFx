@@ -32,6 +32,17 @@
                 <Label text="Enseignant Responsable"/>
                 <TextField fx:id="txtEnseignant" promptText="Nom de l'enseignant"/>
             </VBox>
+            <VBox spacing="2">
+                <Label text="ID Affectation"/>
+                <TextField fx:id="txtIdAffectation" promptText="ID Affectation"/>
+            </VBox>
+            <VBox spacing="2">
+                <Label text="Document (PDF/Word)"/>
+                <HBox spacing="10">
+                    <TextField fx:id="txtDocumentPath" promptText="Chemin du document" HBox.hgrow="ALWAYS"/>
+                    <Button text="..." onAction="#handleChooseDocument"/>
+                </HBox>
+            </VBox>
         </VBox>
 
         <HBox spacing="10">
@@ -64,9 +75,11 @@
         <TableView fx:id="moduleTable" VBox.vgrow="ALWAYS">
             <columns>
                 <TableColumn fx:id="colCode" text="Code" prefWidth="100"/>
-                <TableColumn fx:id="colNom" text="Nom" prefWidth="200"/>
-                <TableColumn fx:id="colCoeff" text="Coefficient" prefWidth="100"/>
-                <TableColumn fx:id="colEnseignant" text="Enseignant" prefWidth="150"/>
+                <TableColumn fx:id="colNom" text="Nom" prefWidth="150"/>
+                <TableColumn fx:id="colCoeff" text="Coefficient" prefWidth="80"/>
+                <TableColumn fx:id="colEnseignant" text="Enseignant" prefWidth="120"/>
+                <TableColumn fx:id="colIdAffectation" text="ID Affectation" prefWidth="100"/>
+                <TableColumn fx:id="colDocumentPath" text="Document" prefWidth="150"/>
             </columns>
         </TableView>
     </VBox>
