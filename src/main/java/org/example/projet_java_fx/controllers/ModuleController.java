@@ -1,4 +1,4 @@
-package org.example.projet_java_fx.controllers;
+package org.example.projet_java_fx.controllers; 
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -6,9 +6,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.example.projet_java_fx.models.Module;
+import org.example.projet_java_fx.services.CSVService;
 import org.example.projet_java_fx.utils.DatabaseConnection;
 import org.example.projet_java_fx.utils.NotificationUtils;
-
+import javafx.stage.FileChooser;
+import java.io.File;
 import java.sql.*;
 
 public class ModuleController {
@@ -141,6 +143,30 @@ public class ModuleController {
         } catch (NumberFormatException e) {
             NotificationUtils.showWarning("Validation", "Coefficient invalide.");
             return false;
+        }
+    }
+
+    @FXML
+    private void handleExport() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Exporter les Modules");
+        fileChooser.setInitialFileName("modules.csv");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+        File file = fileChooser.showSaveDialog(moduleTable.getScene().getWindow());
+        if (file != null) {
+            CSVService.exportTableToCSV("modules", file);
+        }
+    }
+
+    @FXML
+    private void handleImport() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Importer des Modules");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+        File file = fileChooser.showOpenDialog(moduleTable.getScene().getWindow());
+        if (file != null) {
+            CSVService.importCSVToTable("modules", file);
+            loadModules();
         }
     }
 }

@@ -1,4 +1,4 @@
-package org.example.projet_java_fx.controllers;
+package org.example.projet_java_fx.controllers; 
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -10,9 +10,11 @@ import javafx.scene.layout.VBox;
 import org.example.projet_java_fx.models.Grade;
 import org.example.projet_java_fx.models.Module;
 import org.example.projet_java_fx.models.Student;
+import org.example.projet_java_fx.services.CSVService;
 import org.example.projet_java_fx.utils.DatabaseConnection;
 import org.example.projet_java_fx.utils.NotificationUtils;
-
+import javafx.stage.FileChooser;
+import java.io.File;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -223,5 +225,29 @@ public class GradeController {
         String name;
         StudentWrapper(int id, String name) { this.id = id; this.name = name; }
         @Override public String toString() { return name; }
+    }
+
+    @FXML
+    private void handleExport() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Exporter les Notes");
+        fileChooser.setInitialFileName("notes.csv");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+        File file = fileChooser.showSaveDialog(gradeTable.getScene().getWindow());
+        if (file != null) {
+            CSVService.exportTableToCSV("grades", file);
+        }
+    }
+
+    @FXML
+    private void handleImport() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Importer des Notes");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+        File file = fileChooser.showOpenDialog(gradeTable.getScene().getWindow());
+        if (file != null) {
+            CSVService.importCSVToTable("grades", file);
+            loadGrades();
+        }
     }
 }

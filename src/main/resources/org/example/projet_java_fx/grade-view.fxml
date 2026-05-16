@@ -57,7 +57,15 @@
         </VBox>
 
         <VBox spacing="15" HBox.hgrow="ALWAYS">
-            <Label text="Récapitulatif des Notes" styleClass="title-text" style="-fx-font-size: 18;"/>
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="Récapitulatif des Notes" styleClass="title-text" style="-fx-font-size: 18;" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                <Button onAction="#handleExport" text="Exporter CSV">
+                    <graphic><FontIcon iconLiteral="fas-file-export"/></graphic>
+                </Button>
+                <Button onAction="#handleImport" text="Importer CSV">
+                    <graphic><FontIcon iconLiteral="fas-file-import"/></graphic>
+                </Button>
+            </HBox>
             <TableView fx:id="gradeTable" VBox.vgrow="ALWAYS">
                 <columns>
                     <TableColumn fx:id="colStudent" text="Étudiant" prefWidth="150"/>

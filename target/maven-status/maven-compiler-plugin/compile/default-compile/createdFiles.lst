@@ -16,6 +16,7 @@ org\example\projet_java_fx\controllers\LoginController.class
 org\example\projet_java_fx\HelloController.class
 org\example\projet_java_fx\controllers\MainController.class
 org\example\projet_java_fx\MainApp.class
+org\example\projet_java_fx\services\CSVService.class
 org\example\projet_java_fx\utils\AnimationUtils.class
 org\example\projet_java_fx\utils\ReportGenerator.class
 org\example\projet_java_fx\utils\ThemeManager.class

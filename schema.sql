@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS grades (
 );
 
 -- Sample Data Seeding
-INSERT OR IGNORE INTO users (username, password, role) VALUES ('admin', 'admin123', 'ADMIN');
+INSERT OR IGNORE INTO users (username, password, role) VALUES ('ayoub', 'khachnaouiayoub', 'ADMIN');
 INSERT OR IGNORE INTO users (username, password, role) VALUES ('teacher', 'teacher123', 'ENSEIGNANT');
 
 -- Example Student

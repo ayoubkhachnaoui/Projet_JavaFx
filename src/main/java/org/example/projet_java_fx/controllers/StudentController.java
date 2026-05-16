@@ -1,4 +1,4 @@
-package org.example.projet_java_fx.controllers;
+package org.example.projet_java_fx.controllers; 
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -6,9 +6,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.example.projet_java_fx.models.Student;
+import org.example.projet_java_fx.services.CSVService;
 import org.example.projet_java_fx.utils.DatabaseConnection;
 import org.example.projet_java_fx.utils.NotificationUtils;
+import javafx.stage.FileChooser;
 
+import java.io.File;
 import java.sql.*;
 import java.time.LocalDate;
 
@@ -238,5 +241,29 @@ public class StudentController {
             return false;
         }
         return true;
+    }
+
+    @FXML
+    private void handleExport() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Exporter les Étudiants");
+        fileChooser.setInitialFileName("etudiants.csv");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+        File file = fileChooser.showSaveDialog(studentTable.getScene().getWindow());
+        if (file != null) {
+            CSVService.exportTableToCSV("students", file);
+        }
+    }
+
+    @FXML
+    private void handleImport() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Importer des Étudiants");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+        File file = fileChooser.showOpenDialog(studentTable.getScene().getWindow());
+        if (file != null) {
+            CSVService.importCSVToTable("students", file);
+            loadStudents();
+        }
     }
 }
